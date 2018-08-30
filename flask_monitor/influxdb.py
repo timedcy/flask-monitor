@@ -34,7 +34,7 @@ class ObserverInfluxdb(ObserverMetrics):
     def action(self, event):
         try:
             data = self._data
-            if event.dict and event.dict.get('path') in skip_path:
+            if event.dict and event.dict.get('path') in self.skip_path:
                 return
             data[0]['tags'] = {k: v for k, v in event.dict.items() if k not in self.field_set}
             data[0]['fields'] = {k: v for k, v in event.dict.items() if k in self.field_set}
