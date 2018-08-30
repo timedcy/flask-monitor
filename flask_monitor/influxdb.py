@@ -17,6 +17,7 @@ class ObserverInfluxdb(ObserverMetrics):
                 "fields": {},
             }
         ]
+        self.field_set = set(['remote_addr', 'delta', 'start', 'asctime'])
         try:
             self.db = InfluxDBClient(host=host,
                                      port=port,
@@ -32,8 +33,9 @@ class ObserverInfluxdb(ObserverMetrics):
     def action(self, event):
         try:
             data = self._data
-            data[0]['tags'] = event.dict
-            data[0]['fields'] = {"value": event.timing}
+            data[0]['tags'] = {k: v for k, v in event.dict.items() if k not in self.field_set}
+            data[0]['fields'] = {k: v for k, v in event.dict.items() if k in self.field_set}
+            data[0]['fields']["cost"] = event.timing*1000.0
             self.db.write_points(data)
         except InfluxDBClientError as e:
             self.logger.critical("Error InfluxDB '%s'" % str(e))
