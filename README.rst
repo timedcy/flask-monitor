@@ -3,6 +3,7 @@ Flask-monitor
 =============
 
 # 修改部分
+
 - 修复'remote_addr', 'delta', 'start', 'asctime' 这些field当tag用的问题 (timedcy @ 2018-08-30)
 - 添加过滤忽略的path功能 (timedcy @ 2018-08-30)
 
