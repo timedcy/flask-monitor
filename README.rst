@@ -1,4 +1,5 @@
-修复'remote_addr', 'delta', 'start', 'asctime' 这些field当tag用的问题 (timedcy @ 2018-08-30)
+# 修改部分
+1. 修复'remote_addr', 'delta', 'start', 'asctime' 这些field当tag用的问题 (timedcy @ 2018-08-30)
 
 Flask-monitor
 =============
